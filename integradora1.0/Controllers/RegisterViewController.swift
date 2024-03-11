@@ -11,10 +11,12 @@ class RegisterViewController: UIViewController {
 
     @IBOutlet weak var scrRegister: UIScrollView!
     
+    @IBOutlet weak var btnRegister: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        btnRegister.layer.cornerRadius = 20
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {

@@ -14,6 +14,14 @@
 		B99D00942B9B6AF6000AB315 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B99D00932B9B6AF6000AB315 /* Assets.xcassets */; };
 		B99D00972B9B6AF6000AB315 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B99D00952B9B6AF6000AB315 /* LaunchScreen.storyboard */; };
 		B99D00A02B9B88DC000AB315 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99D009F2B9B88DC000AB315 /* RegisterViewController.swift */; };
+		B99D00CC2B9E40FA000AB315 /* _c3db3f28-bd52-4169-bff1-5147dd3786ff.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = B99D00CB2B9E40FA000AB315 /* _c3db3f28-bd52-4169-bff1-5147dd3786ff.jpeg */; };
+		B99D00CE2B9E4158000AB315 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99D00CD2B9E4158000AB315 /* LoginViewController.swift */; };
+		B99D00D12B9E7BCD000AB315 /* kPM4urAvYXtXd4rJy4NBslmNuo0.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B99D00CF2B9E7BCD000AB315 /* kPM4urAvYXtXd4rJy4NBslmNuo0.jpg */; };
+		B99D00D22B9E7BCD000AB315 /* OIP.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = B99D00D02B9E7BCD000AB315 /* OIP.jpeg */; };
+		B99D00D42B9E7FFE000AB315 /* PlantsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99D00D32B9E7FFE000AB315 /* PlantsViewController.swift */; };
+		B99D00D72B9E8684000AB315 /* OIG2.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = B99D00D52B9E8684000AB315 /* OIG2.jpeg */; };
+		B99D00D82B9E8684000AB315 /* OIG4.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = B99D00D62B9E8684000AB315 /* OIG4.jpeg */; };
+		B99D00DA2B9E8BE9000AB315 /* PlantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99D00D92B9E8BE9000AB315 /* PlantViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +34,14 @@
 		B99D00962B9B6AF6000AB315 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B99D00982B9B6AF6000AB315 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B99D009F2B9B88DC000AB315 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		B99D00CB2B9E40FA000AB315 /* _c3db3f28-bd52-4169-bff1-5147dd3786ff.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "_c3db3f28-bd52-4169-bff1-5147dd3786ff.jpeg"; path = "Resources/Images/_c3db3f28-bd52-4169-bff1-5147dd3786ff.jpeg"; sourceTree = SOURCE_ROOT; };
+		B99D00CD2B9E4158000AB315 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		B99D00CF2B9E7BCD000AB315 /* kPM4urAvYXtXd4rJy4NBslmNuo0.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = kPM4urAvYXtXd4rJy4NBslmNuo0.jpg; path = Resources/Images/kPM4urAvYXtXd4rJy4NBslmNuo0.jpg; sourceTree = SOURCE_ROOT; };
+		B99D00D02B9E7BCD000AB315 /* OIP.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = OIP.jpeg; path = Resources/Images/OIP.jpeg; sourceTree = SOURCE_ROOT; };
+		B99D00D32B9E7FFE000AB315 /* PlantsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantsViewController.swift; sourceTree = "<group>"; };
+		B99D00D52B9E8684000AB315 /* OIG2.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = OIG2.jpeg; path = Resources/Images/OIG2.jpeg; sourceTree = SOURCE_ROOT; };
+		B99D00D62B9E8684000AB315 /* OIG4.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = OIG4.jpeg; path = Resources/Images/OIG4.jpeg; sourceTree = SOURCE_ROOT; };
+		B99D00D92B9E8BE9000AB315 /* PlantViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +74,7 @@
 		B99D00892B9B6AF5000AB315 /* integradora1.0 */ = {
 			isa = PBXGroup;
 			children = (
+				B99D00C92B9E4031000AB315 /* Resources */,
 				B99D009E2B9B8896000AB315 /* Controllers */,
 				B99D008A2B9B6AF5000AB315 /* AppDelegate.swift */,
 				B99D008C2B9B6AF5000AB315 /* SceneDelegate.swift */,
@@ -73,9 +90,32 @@
 		B99D009E2B9B8896000AB315 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				B99D00D32B9E7FFE000AB315 /* PlantsViewController.swift */,
+				B99D00CD2B9E4158000AB315 /* LoginViewController.swift */,
 				B99D009F2B9B88DC000AB315 /* RegisterViewController.swift */,
+				B99D00D92B9E8BE9000AB315 /* PlantViewController.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		B99D00C92B9E4031000AB315 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B99D00CA2B9E403B000AB315 /* Images */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		B99D00CA2B9E403B000AB315 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				B99D00D52B9E8684000AB315 /* OIG2.jpeg */,
+				B99D00D62B9E8684000AB315 /* OIG4.jpeg */,
+				B99D00CF2B9E7BCD000AB315 /* kPM4urAvYXtXd4rJy4NBslmNuo0.jpg */,
+				B99D00D02B9E7BCD000AB315 /* OIP.jpeg */,
+				B99D00CB2B9E40FA000AB315 /* _c3db3f28-bd52-4169-bff1-5147dd3786ff.jpeg */,
+			);
+			path = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -94,6 +134,8 @@
 			dependencies = (
 			);
 			name = integradora1.0;
+			packageProductDependencies = (
+			);
 			productName = integradora1.0;
 			productReference = B99D00872B9B6AF5000AB315 /* integradora1.0.app */;
 			productType = "com.apple.product-type.application";
@@ -122,6 +164,8 @@
 				Base,
 			);
 			mainGroup = B99D007E2B9B6AF5000AB315;
+			packageReferences = (
+			);
 			productRefGroup = B99D00882B9B6AF5000AB315 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -136,9 +180,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B99D00D82B9E8684000AB315 /* OIG4.jpeg in Resources */,
+				B99D00D22B9E7BCD000AB315 /* OIP.jpeg in Resources */,
 				B99D00972B9B6AF6000AB315 /* LaunchScreen.storyboard in Resources */,
+				B99D00D72B9E8684000AB315 /* OIG2.jpeg in Resources */,
+				B99D00CC2B9E40FA000AB315 /* _c3db3f28-bd52-4169-bff1-5147dd3786ff.jpeg in Resources */,
 				B99D00942B9B6AF6000AB315 /* Assets.xcassets in Resources */,
 				B99D00922B9B6AF5000AB315 /* Main.storyboard in Resources */,
+				B99D00D12B9E7BCD000AB315 /* kPM4urAvYXtXd4rJy4NBslmNuo0.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -152,6 +201,9 @@
 				B99D008F2B9B6AF5000AB315 /* ViewController.swift in Sources */,
 				B99D008B2B9B6AF5000AB315 /* AppDelegate.swift in Sources */,
 				B99D008D2B9B6AF5000AB315 /* SceneDelegate.swift in Sources */,
+				B99D00DA2B9E8BE9000AB315 /* PlantViewController.swift in Sources */,
+				B99D00CE2B9E4158000AB315 /* LoginViewController.swift in Sources */,
+				B99D00D42B9E7FFE000AB315 /* PlantsViewController.swift in Sources */,
 				B99D00A02B9B88DC000AB315 /* RegisterViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -9,21 +9,24 @@ import UIKit
 
 class PlantsViewController: UIViewController {
 
+    @IBOutlet weak var imgBackground: UIImageView!
+    @IBOutlet weak var imgPlant: UIImageView!
+    @IBOutlet weak var viewContainerPlant: UIView!
+    @IBOutlet weak var btnSeePlant: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        let blurEffect = UIBlurEffect(style: .regular)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = imgBackground.bounds
+        imgBackground.addSubview(blurEffectView)
+        
+        
+        btnSeePlant.layer.cornerRadius = 25
+        imgPlant.layer.cornerRadius = 10
+        viewContainerPlant.layer.cornerRadius = 20
+        viewContainerPlant.layer.borderWidth = 2
+        viewContainerPlant.layer.borderColor = UIColor.black.cgColor
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
