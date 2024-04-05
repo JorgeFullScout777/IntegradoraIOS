@@ -23,7 +23,7 @@ class PlantsViewController: UIViewController {
         
         
         btnSeePlant.layer.cornerRadius = 25
-        imgPlant.layer.cornerRadius = 10
+        imgPlant.layer.cornerRadius = 40
         viewContainerPlant.layer.cornerRadius = 20
         viewContainerPlant.layer.borderWidth = 2
         viewContainerPlant.layer.borderColor = UIColor.black.cgColor

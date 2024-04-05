@@ -24,5 +24,9 @@ class RegisterViewController: UIViewController {
     }
     
 
+    @IBAction func btnBack() {
+        dismiss(animated: true)
+    }
+    
 
 }
