@@ -12,6 +12,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var txfPassword: UITextField!
     @IBOutlet weak var txfCorreo: UITextField!
     @IBOutlet weak var imgBackground: UIImageView!
+    @IBOutlet var labelerrors: UILabel!
     @IBOutlet weak var viewBackgroundInputs: UIView!
     @IBOutlet weak var btnIniciarSesion: UIButton!
     @IBOutlet var btnsLogin: [UIButton]!
@@ -36,6 +37,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
         
         txfPassword.isSecureTextEntry = true
+        btnIniciarSesion.isEnabled = false
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -61,25 +63,88 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func IniciarSesion() {
-        let conexion = URLSession(configuration: .default)
-        let url = URL(string: "https://rickandmortyapi.com/api/character")!
-        
-        conexion.dataTask(with: url) { datos, respuesta, error in
-            do{
-                let json = try JSONSerialization.jsonObject(with: datos!) as! [String:Any]
-                let resultados = json["results"] as! [[String:Any]]
-                for personaje in resultados{
-                    print(personaje)
-                }
-                DispatchQueue.main.async{
-                    
+        let correo = txfCorreo.text!
+        let password = txfPassword.text!
+
+        // Validación de email
+        /*
+        let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        let emailPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegex)
+        if !emailPredicate.evaluate(with: correo) {
+            labelerrors.text = "Formato de email inválido."
+            return
+        }
+        */
+
+        let url = URL(string: "http://192.168.80.109:8000/api/auth/login")!
+
+        // Crear la solicitud con codificación JSON
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        let parameters: [String: String] = [
+            "email": correo,
+            "password": password
+        ]
+
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted)
+            request.httpBody = jsonData
+
+            //se utilizo sesion para hacer las peticiones
+            let session = URLSession.shared
+
+            let task = session.dataTask(with: request) { (data, response, error) in
+                
+                // Manejar errores
+                /*if let error = error {
+                    print("Error:", error.localizedDescription)
+                    DispatchQueue.main.async {
+                        self.labelerrors.text = "Error: \(error.localizedDescription)"
+                    }
+                    return
+                }*/
+
+                // Manejar la respuesta exitosa
+                if let data = data {
+                    do {
+                        let jsonResponse = try JSONSerialization.jsonObject(with: data, options: [])
+                        if let responseDictionary = jsonResponse as? [String: Any] {
+                            // Procesar el diccionario de respuesta
+                            if let message = responseDictionary["msg"] as? String {
+                                DispatchQueue.main.async {
+                                    self.labelerrors.text = message
+                                    //aqui en vez de ser con el label sera con alert para que la funcion delsegue me mande a la pantalla de verificar
+                                }
+                            } else {
+                                print("No se encontró mensaje en la respuesta")
+                            }
+                        } else {
+                            print("Respuesta JSON inválida")
+                        }
+                    } catch {
+                        print("Error al analizar la respuesta JSON:", error)
+                    }
+                } else {
+                    print("No se recibieron datos del servidor")
                 }
             }
-            catch{
-                print("Error en la peticion =(")
-            }
-        }.resume()
+
+            task.resume()
+        } catch {
+            print("Error al codificar los parámetros JSON:", error)
+        }
     }
-    
-    
+
+    // Sobreescribimos el método shouldPerformSegue
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        // Si el identificador del segue es "sgverificacion" y la petición no fue exitosa, no realizamos el segue
+        if identifier == "sgverificacion" && self.labelerrors.text != "" {
+            return false
+        }
+        
+        // En cualquier otro caso, realizamos el segue
+        return true
+    }
 }
