@@ -16,6 +16,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var viewBackgroundInputs: UIView!
     @IBOutlet weak var btnIniciarSesion: UIButton!
     @IBOutlet var btnsLogin: [UIButton]!
+    var estado = false
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -62,23 +63,25 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+
+    
     @IBAction func IniciarSesion() {
         let correo = txfCorreo.text!
         let password = txfPassword.text!
 
-        // Validación de email
+        // Validation (optional)
         /*
-        let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-        let emailPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegex)
-        if !emailPredicate.evaluate(with: correo) {
-            labelerrors.text = "Formato de email inválido."
-            return
-        }
-        */
+         let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+         let emailPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegex)
+         if !emailPredicate.evaluate(with: correo) {
+             labelerrors.text = "Formato de email inválido."
+             return
+         }
+         */
 
         let url = URL(string: "http://192.168.80.109:8000/api/auth/login")!
 
-        // Crear la solicitud con codificación JSON
+        // Create the request with JSON encoding
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -92,50 +95,79 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             let jsonData = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted)
             request.httpBody = jsonData
 
-            //se utilizo sesion para hacer las peticiones
+            // Use URLSession for requests
             let session = URLSession.shared
 
             let task = session.dataTask(with: request) { (data, response, error) in
-                
-                // Manejar errores
-                /*if let error = error {
-                    print("Error:", error.localizedDescription)
-                    DispatchQueue.main.async {
-                        self.labelerrors.text = "Error: \(error.localizedDescription)"
-                    }
-                    return
-                }*/
 
-                // Manejar la respuesta exitosa
-                if let data = data {
-                    do {
-                        let jsonResponse = try JSONSerialization.jsonObject(with: data, options: [])
-                        if let responseDictionary = jsonResponse as? [String: Any] {
-                            // Procesar el diccionario de respuesta
-                            if let message = responseDictionary["msg"] as? String {
+
+                // Handle successful response
+                guard let data = data else {
+                    print("No data received from server")
+                    return
+                }
+
+                // Verificar el código de respuesta HTTP
+                if let httpResponse = response as? HTTPURLResponse {
+                    if httpResponse.statusCode == 200 {
+                        // Procesar la respuesta exitosa
+                        do {
+                            let jsonResponse = try JSONSerialization.jsonObject(with: data, options: [])
+                            if let responseDictionary = jsonResponse as? [String: Any] {
+                                let message = responseDictionary["msg"] as? String
                                 DispatchQueue.main.async {
-                                    self.labelerrors.text = message
-                                    //aqui en vez de ser con el label sera con alert para que la funcion delsegue me mande a la pantalla de verificar
+                                    // Mostrar la alerta y realizar el segue
+                                    print(message!, httpResponse)
+                                    let alerta = UIAlertController(title: "Credenciales correctas", message: message, preferredStyle: .alert)
+                                    alerta.addAction(UIAlertAction(title: "Continuar", style: .default, handler: { _ in
+                                        self.estado = true
+                                        self.performSegue(withIdentifier: "sgVerification", sender: nil)
+                                    }))
+                                    self.present(alerta, animated: true, completion: nil)
                                 }
+                                
                             } else {
-                                print("No se encontró mensaje en la respuesta")
+                                print("Invalid JSON response")
                             }
-                        } else {
-                            print("Respuesta JSON inválida")
+                        } catch {
+                            
+                            print("Error parsing JSON response:", error)
                         }
-                    } catch {
-                        print("Error al analizar la respuesta JSON:", error)
+                    } else {
+                        //aca pondremos los errores
+                        print("Error: código de respuesta \(httpResponse.statusCode)")
+                        DispatchQueue.main.async {
+                            if httpResponse.statusCode == 401{
+                                self.labelerrors.text = "Credenciales incorrectas"
+                            }
+                            
+                        }
                     }
-                } else {
-                    print("No se recibieron datos del servidor")
                 }
             }
 
             task.resume()
         } catch {
-            print("Error al codificar los parámetros JSON:", error)
+            print("Error encoding JSON parameters:", error)
         }
     }
 
 
+
+ 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "sgVerification" {
+                let vc = segue.destination as! VerificationViewController
+                vc.correo = txfCorreo.text!
+                vc.contraseña = txfPassword.text!
+            }
+    }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if identifier == "sgVerification" && estado == false{
+            return false
+        }
+        
+        return true
+    }
 }

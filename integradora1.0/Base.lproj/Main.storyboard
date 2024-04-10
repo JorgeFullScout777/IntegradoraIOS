@@ -187,10 +187,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rJj-dZ-tME">
-                                <rect key="frame" x="0.0" y="59" width="393" height="710"/>
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="803"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="OIG2.jpeg" translatesAutoresizingMaskIntoConstraints="NO" id="S37-ua-jgj">
-                                        <rect key="frame" x="0.0" y="61.666666666666686" width="393" height="648.33333333333326"/>
+                                        <rect key="frame" x="0.0" y="61.666666666666686" width="393" height="741.33333333333326"/>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aiU-GS-Kta">
                                         <rect key="frame" x="0.0" y="0.0" width="393" height="61.666666666666664"/>
@@ -302,7 +302,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AgP-QJ-4xZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1195" y="647"/>
+            <point key="canvasLocation" x="1216" y="708"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="vvr-MM-id5">
@@ -530,7 +530,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nh7-Tg-ExK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1194.6564885496182" y="1301.4084507042255"/>
+            <point key="canvasLocation" x="2288" y="716"/>
         </scene>
         <!--Item-->
         <scene sceneID="gYb-3o-szh">
@@ -541,7 +541,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xSj-zb-hLS">
-                                <rect key="frame" x="0.0" y="59" width="393" height="710"/>
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="803"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zDU-zs-dn7">
                                         <rect key="frame" x="0.0" y="0.0" width="393" height="66"/>
@@ -557,7 +557,7 @@
                                         </constraints>
                                     </imageView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KgS-hi-qod">
-                                        <rect key="frame" x="17" y="123" width="130" height="121.66666666666669"/>
+                                        <rect key="frame" x="17" y="122.99999999999999" width="130" height="137.66666666666663"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Nombre del Usuario" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fvK-Ya-45O">
                                         <rect key="frame" x="155" y="177" width="230" height="87"/>
@@ -784,7 +784,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KOy-Gi-3uA">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KOy-Gi-3uA">
                                 <rect key="frame" x="46.333333333333343" y="762" width="300.33333333333326" height="50"/>
                                 <color key="backgroundColor" red="0.14509806040000001" green="0.76862752440000004" blue="0.52549022440000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
@@ -798,6 +798,7 @@
                                 <connections>
                                     <action selector="IniciarSesion" destination="Ka3-bP-3Fi" eventType="touchUpInside" id="RhE-vo-6Lz"/>
                                     <action selector="verificarcodigo" destination="n9O-Qh-QoH" eventType="touchUpInside" id="E3u-GY-eNF"/>
+                                    <segue destination="Da0-0S-PL5" kind="presentation" identifier="sginicio" modalPresentationStyle="fullScreen" id="z3P-3f-vvU"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error: El correo o la contraseña son incorrectos, porfavor revisalas." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="8" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DNU-wc-XOa">
