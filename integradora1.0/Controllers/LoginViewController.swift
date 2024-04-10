@@ -137,14 +137,5 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
     }
 
-    // Sobreescribimos el método shouldPerformSegue
-    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        // Si el identificador del segue es "sgverificacion" y la petición no fue exitosa, no realizamos el segue
-        if identifier == "sgverificacion" && self.labelerrors.text != "" {
-            return false
-        }
-        
-        // En cualquier otro caso, realizamos el segue
-        return true
-    }
+
 }

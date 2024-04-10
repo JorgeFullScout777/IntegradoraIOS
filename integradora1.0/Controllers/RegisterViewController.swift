@@ -83,10 +83,10 @@ class RegisterViewController: UIViewController {
                                     // Mostrar un mensaje de alerta en lugar de usar el label
                                     let alert = UIAlertController(title: "¡Registro exitoso!", message: message, preferredStyle: .alert)
                                     alert.addAction(UIAlertAction(title: "Aceptar", style: .default, handler: { _ in
-                                    // Función para realizar el segue a la pantalla de verificar, esto cuando ya tengas la pantalla de verificar
-                                    //self.performSegue(withIdentifier: "SegueToVerify", sender: self)
+                                        self.dismiss(animated: true)
                                             }))
                                     self.present(alert, animated: true)
+
                                 }
                             } else {
                                 print("No se encontró mensaje en la respuesta")
