@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8837AEDE2BC617A100BBA5AB /* VerificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8837AEDD2BC617A100BBA5AB /* VerificationViewController.swift */; };
+		8837AEE02BC61A6000BBA5AB /* verification.png in Resources */ = {isa = PBXBuildFile; fileRef = 8837AEDF2BC61A6000BBA5AB /* verification.png */; };
 		B99D008B2B9B6AF5000AB315 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99D008A2B9B6AF5000AB315 /* AppDelegate.swift */; };
 		B99D008D2B9B6AF5000AB315 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99D008C2B9B6AF5000AB315 /* SceneDelegate.swift */; };
 		B99D008F2B9B6AF5000AB315 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99D008E2B9B6AF5000AB315 /* ViewController.swift */; };
@@ -25,6 +27,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8837AEDD2BC617A100BBA5AB /* VerificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationViewController.swift; sourceTree = "<group>"; };
+		8837AEDF2BC61A6000BBA5AB /* verification.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = verification.png; path = Images/verification.png; sourceTree = SOURCE_ROOT; };
 		B99D00872B9B6AF5000AB315 /* integradora1.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = integradora1.0.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B99D008A2B9B6AF5000AB315 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B99D008C2B9B6AF5000AB315 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -94,6 +98,7 @@
 				B99D00CD2B9E4158000AB315 /* LoginViewController.swift */,
 				B99D009F2B9B88DC000AB315 /* RegisterViewController.swift */,
 				B99D00D92B9E8BE9000AB315 /* PlantViewController.swift */,
+				8837AEDD2BC617A100BBA5AB /* VerificationViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -110,6 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				B99D00D52B9E8684000AB315 /* OIG2.jpeg */,
+				8837AEDF2BC61A6000BBA5AB /* verification.png */,
 				B99D00D62B9E8684000AB315 /* OIG4.jpeg */,
 				B99D00CF2B9E7BCD000AB315 /* kPM4urAvYXtXd4rJy4NBslmNuo0.jpg */,
 				B99D00D02B9E7BCD000AB315 /* OIP.jpeg */,
@@ -188,6 +194,7 @@
 				B99D00942B9B6AF6000AB315 /* Assets.xcassets in Resources */,
 				B99D00922B9B6AF5000AB315 /* Main.storyboard in Resources */,
 				B99D00D12B9E7BCD000AB315 /* kPM4urAvYXtXd4rJy4NBslmNuo0.jpg in Resources */,
+				8837AEE02BC61A6000BBA5AB /* verification.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -200,6 +207,7 @@
 			files = (
 				B99D008F2B9B6AF5000AB315 /* ViewController.swift in Sources */,
 				B99D008B2B9B6AF5000AB315 /* AppDelegate.swift in Sources */,
+				8837AEDE2BC617A100BBA5AB /* VerificationViewController.swift in Sources */,
 				B99D008D2B9B6AF5000AB315 /* SceneDelegate.swift in Sources */,
 				B99D00DA2B9E8BE9000AB315 /* PlantViewController.swift in Sources */,
 				B99D00CE2B9E4158000AB315 /* LoginViewController.swift in Sources */,
