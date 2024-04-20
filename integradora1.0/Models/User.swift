@@ -8,5 +8,10 @@
 import UIKit
 
 class User: NSObject {
+    
+    static  var rolId:Int?
+    static var nameUsuario:String?
+    static var emailUsuario:String?
+    static var plantsCount:Int?
 
 }

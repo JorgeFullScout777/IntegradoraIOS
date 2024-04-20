@@ -7,22 +7,25 @@
 
 import UIKit
 
-class VerificationViewController: UIViewController {
+class VerificationViewController: UIViewController, UITextFieldDelegate {
     
     
     @IBOutlet var txfcodigo: UITextField!
     
+    @IBOutlet weak var btnVerificar: UIButton!
     @IBOutlet var lblerrores: UILabel!
-    var correo:String!
-    var contraseña:String!
+    var correo:String! = ""
+    var contraseña:String! = ""
     var estado = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        print(correo!)
-        print(contraseña!)
+        btnVerificar.layer.cornerRadius = 20
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        txfcodigo.resignFirstResponder()
+        return true
     }
     
     @IBAction func verificarcodigo() {
@@ -31,13 +34,10 @@ class VerificationViewController: UIViewController {
         let codigo =  txfcodigo.text!
 
 
-        let url = URL(string: "http://192.168.80.109:8000/api/auth/login")!
-
-        // Crear la solicitud con codificación JSON
+        let url = URL(string: "http://\(ApplicationConfiguration.direccionIP)/api/auth/login")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
         let parameters: [String: String] = [
             "email": correo,
             "password": password,
@@ -72,8 +72,10 @@ class VerificationViewController: UIViewController {
                                
                                     DispatchQueue.main.async {
                                         // Mostrar la alerta y realizar el segue
-                                        print(token!, httpResponse)
+                                        print("TOKEN: \(token!) \nHttpResponse: \(httpResponse)")
                                         print(tokentype!)
+                                        UserDefaults.standard.set(token!, forKey: "token")
+                                        UserDefaults.standard.set(tokentype!, forKey: "tokentype")
                                             self.estado = true
                                             self.performSegue(withIdentifier: "sginicio", sender: nil)
                                     }
@@ -88,6 +90,9 @@ class VerificationViewController: UIViewController {
                     } else {
                         //aca pondremos los errores
                         print("Error: código de respuesta \(httpResponse.statusCode)")
+                        DispatchQueue.main.async{
+                            self.lblerrores.text = "El codigo no es el correcto, reviselo porfavor."
+                        }
                     }
                 }
             }

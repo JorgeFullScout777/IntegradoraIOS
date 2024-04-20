@@ -7,8 +7,10 @@
 
 import UIKit
 
-class PlantsViewController: UIViewController, UITextFieldDelegate {
+class PlantsViewController: UIViewController, UITextFieldDelegate, PlantViewControllerDelegate{
 
+    var plantLabels: [UILabel] = []
+    var plantViews: [UIView] = []
     @IBOutlet weak var scrPlants: UIScrollView!
     @IBOutlet weak var btnAddPlant: UIButton!
     @IBOutlet weak var imgBackground: UIImageView!
@@ -27,22 +29,29 @@ class PlantsViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        UserDefaults.standard.set("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE3MTMwNjM5MzYsImV4cCI6MTcxMzA3NDczNiwibmJmIjoxNzEzMDYzOTM2LCJqdGkiOiJqbEdDNmhSZzlwQzRIUkNlIiwic3ViIjoiNiIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.eDYnAePAthWEgTFvlqLk0-l8QHdai_nfIAJRHu2ntew", forKey: "token")
-        
         let blurEffect = UIBlurEffect(style: .regular)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = imgBackground.bounds
         imgBackground.addSubview(blurEffectView)
         
         btnAddPlant.layer.cornerRadius = 35
-        /*
-        btnSeePlant.layer.cornerRadius = 25
-        imgPlant.layer.cornerRadius = 40
-        viewContainerPlant.layer.cornerRadius = 20
-        viewContainerPlant.layer.borderWidth = 2
-        viewContainerPlant.layer.borderColor = UIColor.black.cgColor*/
         consultarPlantas()
     }
+    
+    func backButtonPressed(index:Int, planta:Planta) {
+        plantLabels[index].text = planta.name
+        plantas[index] = planta
+        print(planta.status)
+        if planta.status == true{
+            plantViews[index].layer.borderColor = UIColor.systemGreen.cgColor
+            plantViews[index].layer.backgroundColor = UIColor.white.cgColor
+        }
+        else{
+            plantViews[index].layer.borderColor = UIColor.systemRed.cgColor
+            plantViews[index].layer.backgroundColor = UIColor(red: 255/255, green: 247/255, blue: 247/255, alpha: 1.0).cgColor
+        }
+    }
+
     func scrollPlantas(){
         scrPlants.contentSize = CGSize(width: view.frame.width, height: y+80)
     }
@@ -53,26 +62,38 @@ class PlantsViewController: UIViewController, UITextFieldDelegate {
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue("Bearer \(UserDefaults.standard.string(forKey: "token")!)", forHTTPHeaderField: "Authorization")
-        conexion.dataTask(with: request) { datos, respuesta, error in
-            do{
-                let json = try JSONSerialization.jsonObject(with: datos!) as! [String:Any]
-                if let resultados = json["data"] as? [[String:Any]]{
-                    print(resultados)
-                    
-                    for planta in resultados{
-                        self.plantas.append(Planta(id:planta["id"] as! Int, name: planta["plant"] as! String, status: planta["status"] as! Bool, image: nil))
-                    }
-                    DispatchQueue.main.async{
-                        self.dibujarPlantas()
-                    }
-                }
-                else{
-                    print("No estas autorizado")
-                }
-
+        conexion.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print("Error en la solicitud GET: \(error.localizedDescription)")
+                return
             }
-            catch{
-                print("Error en la peticion =(")
+            if let httpResponse = response as? HTTPURLResponse {
+                print("Código de estado HTTP de la respuesta: \(httpResponse.statusCode)")
+                if httpResponse.statusCode == 401{
+                    DispatchQueue.main.async{
+                        self.present(ApplicationConfiguration.closeApp(), animated: true)
+                    }
+                }
+                if let data = data {
+                    do{
+                        let json = try JSONSerialization.jsonObject(with: data) as! [String:Any]
+                        if let resultados = json["data"] as? [[String:Any]]{
+                            for planta in resultados{
+                                self.plantas.append(Planta(id:planta["id"] as! Int, name: planta["plant"] as! String, status: planta["status"] as! Bool, image: nil))
+                            }
+                            DispatchQueue.main.async{
+                                self.dibujarPlantas()
+                            }
+                        }
+                        else{
+                            print("No estas autorizado")
+                        }
+
+                    }
+                    catch{
+                        print("Error en la peticion =(")
+                    }
+                }
             }
         }.resume()
     }
@@ -84,6 +105,17 @@ class PlantsViewController: UIViewController, UITextFieldDelegate {
             let vista = UIView(frame: CGRect(x: x, y: y, width: w-20.0, height: h))
             vista.backgroundColor = .white
             vista.layer.cornerRadius = 40
+            vista.layer.borderWidth = 3.0
+
+            if planta.status == true{
+                vista.layer.borderColor = UIColor.systemGreen.cgColor
+            }
+            else{
+                vista.backgroundColor = UIColor(red: 255/255, green: 247/255, blue: 247/255, alpha: 1.0)
+                vista.layer.borderColor = UIColor.systemRed.cgColor
+            }
+            
+            plantViews.append(vista)
             
             y += vista.frame.height + 10.0
             
@@ -92,7 +124,6 @@ class PlantsViewController: UIViewController, UITextFieldDelegate {
             let image = UIImage(named: "plantaset\(num).jpeg")
             imgPlanta.image = image
             planta.image = image
-            
             imgPlanta.layer.cornerRadius = 40
             imgPlanta.clipsToBounds = true
 
@@ -101,9 +132,9 @@ class PlantsViewController: UIViewController, UITextFieldDelegate {
             lblPlanta.font = .systemFont(ofSize: 18, weight: .regular)
             lblPlanta.adjustsFontSizeToFitWidth = true
             lblPlanta.minimumScaleFactor = 0.7
-            
+            plantLabels.append(lblPlanta)
+
             for i in 1...8{
-                print(i)
                 let icon = UIImageView(frame: CGRect(x: imgPlanta.frame.origin.x+imgPlanta.frame.width+15.0+CGFloat(ic), y: imgPlanta.frame.height-lblPlanta.frame.height+10.0, width: k, height: k))
                 icon.contentMode = .scaleAspectFit
                 icon.layer.cornerRadius = 10
@@ -169,7 +200,9 @@ class PlantsViewController: UIViewController, UITextFieldDelegate {
         let planta = plantas[sender.tag]
         if let pvc = storyboard?.instantiateViewController(withIdentifier: "plantView") as? PlantViewController {
             pvc.planta = planta
+            pvc.index = sender.tag
             pvc.modalPresentationStyle = .fullScreen
+            pvc.delegate = self
             present(pvc, animated: true)
         }
     }
@@ -222,17 +255,18 @@ class PlantsViewController: UIViewController, UITextFieldDelegate {
                 print("Error en la solicitud POST: \(error.localizedDescription)")
                 return
             }
-                        if let httpResponse = response as? HTTPURLResponse {
+            if let httpResponse = response as? HTTPURLResponse {
                 print("Código de estado HTTP de la respuesta: \(httpResponse.statusCode)")
                 if httpResponse.statusCode == 201{
-                    self.plantas.removeAll()
-                    self.y = 10.0
                     DispatchQueue.main.async{
-                        for subview in self.scrPlants.subviews {
-                            subview.removeFromSuperview()
-                        }
+                        self.clearPlants()
                     }
                     self.consultarPlantas()
+                }
+                if httpResponse.statusCode == 401{
+                    DispatchQueue.main.async{
+                        self.present(ApplicationConfiguration.closeApp(), animated: true)
+                    }
                 }
                 if httpResponse.statusCode == 422 {
                     DispatchQueue.main.async{
@@ -254,6 +288,14 @@ class PlantsViewController: UIViewController, UITextFieldDelegate {
         }
 
         task.resume()
+    }
+    
+    func clearPlants(){
+        plantas.removeAll()
+        y = 10.0
+        for subview in self.scrPlants.subviews {
+            subview.removeFromSuperview()
+        }
     }
 
 }
