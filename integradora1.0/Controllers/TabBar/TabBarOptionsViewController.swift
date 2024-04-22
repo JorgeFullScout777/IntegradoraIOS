@@ -8,28 +8,34 @@
 import UIKit
 
 class TabBarOptionsViewController: UITabBarController, UITabBarControllerDelegate {
+    let uvc:UsersViewController? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.viewControllers?[2].tabBarItem.isEnabled = false
+        self.delegate = self
         getRol()
     }
     
     func isAdmin(ID:Int){
         print(ID)
         UserDefaults().setValue(ID, forKey: "rolId")
-        if(ID != 2){
+        if(ID == 2){
             DispatchQueue.main.async{
-                self.viewControllers?[2].tabBarItem.isEnabled = true
-                self.viewControllers?.removeLast()
+                if self.viewControllers!.count <= 2{
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    let controller = storyboard.instantiateViewController(withIdentifier: "userAdminView")
+                    controller.modalTransitionStyle = .crossDissolve
+                    controller.modalPresentationStyle = .fullScreen
+                    self.viewControllers?.append(controller)
+                }
             }
         }
-        else{
-            DispatchQueue.main.async{
-                self.viewControllers?[2].tabBarItem.isEnabled = true
-
-            }
-        }
+        
+        
+    }
+    
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        getRol()
     }
     
     func getRol() {

@@ -8,7 +8,6 @@
 import UIKit
 
 class PlantsViewController: UIViewController, UITextFieldDelegate, PlantViewControllerDelegate{
-
     var plantLabels: [UILabel] = []
     var plantViews: [UIView] = []
     @IBOutlet weak var scrPlants: UIScrollView!
@@ -71,7 +70,12 @@ class PlantsViewController: UIViewController, UITextFieldDelegate, PlantViewCont
                 print("Código de estado HTTP de la respuesta: \(httpResponse.statusCode)")
                 if httpResponse.statusCode == 401{
                     DispatchQueue.main.async{
-                        self.present(ApplicationConfiguration.closeApp(), animated: true)
+                        let alerta = UIAlertController(title: "Ha ocurrido algo", message: "Vuelve a iniciar sesion", preferredStyle: .alert)
+                        let aceptar = UIAlertAction(title: "Aceptar", style: .default){accion in
+                            self.present(ApplicationConfiguration.login(), animated: true)
+                        }
+                        alerta.addAction(aceptar)
+                        self.present(alerta, animated: true)
                     }
                 }
                 if let data = data {
@@ -255,36 +259,45 @@ class PlantsViewController: UIViewController, UITextFieldDelegate, PlantViewCont
                 print("Error en la solicitud POST: \(error.localizedDescription)")
                 return
             }
-            if let httpResponse = response as? HTTPURLResponse {
-                print("Código de estado HTTP de la respuesta: \(httpResponse.statusCode)")
-                if httpResponse.statusCode == 201{
-                    DispatchQueue.main.async{
-                        self.clearPlants()
-                    }
-                    self.consultarPlantas()
-                }
-                if httpResponse.statusCode == 401{
-                    DispatchQueue.main.async{
-                        self.present(ApplicationConfiguration.closeApp(), animated: true)
-                    }
-                }
-                if httpResponse.statusCode == 422 {
-                    DispatchQueue.main.async{
-                        self.alertController = UIAlertController(title: "Ha ocurrido algo", message: "Nombre invalido", preferredStyle: .alert)
-                        let aceptar = UIAlertAction(title: "Aceptar", style: .default)
-                        self.alertController?.addAction(aceptar)
-                        self.present(self.alertController!, animated: true, completion: nil)
+            if let data = data {
+                do {
+                    let jsonResponse = try JSONSerialization.jsonObject(with: data, options: [])
+                    print("Respuesta JSON: \(jsonResponse)")
+                    if let httpResponse = response as? HTTPURLResponse {
+                        print("Código de estado HTTP de la respuesta: \(httpResponse.statusCode)")
+                        if httpResponse.statusCode == 201{
+                            DispatchQueue.main.async{
+                                self.clearPlants()
+                            }
+                            self.consultarPlantas()
                         }
-                }
-                if let data = data {
-                    do {
-                        let jsonResponse = try JSONSerialization.jsonObject(with: data, options: [])
-                        print("Respuesta JSON: \(jsonResponse)")
-                    } catch {
-                        print("Error al convertir los datos de la respuesta a JSON: \(error.localizedDescription)")
+                        if httpResponse.statusCode == 401{
+                            DispatchQueue.main.async{
+                                let alerta = UIAlertController(title: "Ha ocurrido algo", message: "Vuelve a iniciar sesion", preferredStyle: .alert)
+                                let aceptar = UIAlertAction(title: "Aceptar", style: .default){accion in
+                                    self.present(ApplicationConfiguration.login(), animated: true)
+                                }
+                                alerta.addAction(aceptar)
+                                self.present(alerta, animated: true)
+                            }
+                        }
+                        if httpResponse.statusCode == 422 {
+                            if let responseDictionary = jsonResponse as? [String: Any]{
+                                let errors = responseDictionary["errors"] as! [String: [String]]
+                                DispatchQueue.main.async{
+                                    self.alertController = UIAlertController(title: "Ha ocurrido algo", message: errors["plant"]?.first, preferredStyle: .alert)
+                                    let aceptar = UIAlertAction(title: "Aceptar", style: .default)
+                                    self.alertController?.addAction(aceptar)
+                                    self.present(self.alertController!, animated: true, completion: nil)
+                                    }
+                            }
+                        }
                     }
+                } catch {
+                    print("Error al convertir los datos de la respuesta a JSON: \(error.localizedDescription)")
                 }
             }
+
         }
 
         task.resume()
@@ -296,6 +309,16 @@ class PlantsViewController: UIViewController, UITextFieldDelegate, PlantViewCont
         for subview in self.scrPlants.subviews {
             subview.removeFromSuperview()
         }
+    }
+    
+    func stopPolling() {
+        print("Stop polling plants")
+        let alerta = UIAlertController(title: "Ha ocurrido algo", message: "Vuelve a iniciar sesion", preferredStyle: .alert)
+        let aceptar = UIAlertAction(title: "Aceptar", style: .default){accion in
+            self.present(ApplicationConfiguration.login(), animated: true)
+        }
+        alerta.addAction(aceptar)
+        present(alerta, animated: true)
     }
 
 }

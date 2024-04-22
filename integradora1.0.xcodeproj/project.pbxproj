@@ -37,7 +37,12 @@
 		B9E1048F2BD067140053439A /* TabBarOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E1048E2BD067140053439A /* TabBarOptionsViewController.swift */; };
 		B9E104922BD075740053439A /* UsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E104912BD075740053439A /* UsersViewController.swift */; };
 		B9EB56E32BD393060050A1DD /* UserFromViewAdmin.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EB56E22BD393060050A1DD /* UserFromViewAdmin.swift */; };
-		B9EB56E62BD4446E0050A1DD /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EB56E52BD4446D0050A1DD /* ModalViewController.swift */; };
+		B9EB56E62BD4446E0050A1DD /* DetalleUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EB56E52BD4446D0050A1DD /* DetalleUserViewController.swift */; };
+		B9EB56E82BD486430050A1DD /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EB56E72BD486430050A1DD /* SplashViewController.swift */; };
+		B9EFD7FE2BD4A172004AF540 /* plantSplash.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = B9EFD7FD2BD4A172004AF540 /* plantSplash.mp4 */; };
+		B9EFD8002BD4E50B004AF540 /* Sensor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EFD7FF2BD4E50B004AF540 /* Sensor.swift */; };
+		B9EFD8022BD50809004AF540 /* UpdateUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EFD8012BD50809004AF540 /* UpdateUserViewController.swift */; };
+		B9EFD8042BD50820004AF540 /* StoreUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EFD8032BD50820004AF540 /* StoreUserViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,7 +78,12 @@
 		B9E1048E2BD067140053439A /* TabBarOptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarOptionsViewController.swift; sourceTree = "<group>"; };
 		B9E104912BD075740053439A /* UsersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersViewController.swift; sourceTree = "<group>"; };
 		B9EB56E22BD393060050A1DD /* UserFromViewAdmin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFromViewAdmin.swift; sourceTree = "<group>"; };
-		B9EB56E52BD4446D0050A1DD /* ModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
+		B9EB56E52BD4446D0050A1DD /* DetalleUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetalleUserViewController.swift; sourceTree = "<group>"; };
+		B9EB56E72BD486430050A1DD /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
+		B9EFD7FD2BD4A172004AF540 /* plantSplash.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = plantSplash.mp4; sourceTree = "<group>"; };
+		B9EFD7FF2BD4E50B004AF540 /* Sensor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sensor.swift; sourceTree = "<group>"; };
+		B9EFD8012BD50809004AF540 /* UpdateUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateUserViewController.swift; sourceTree = "<group>"; };
+		B9EFD8032BD50820004AF540 /* StoreUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreUserViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +140,7 @@
 				B99D008C2B9B6AF5000AB315 /* SceneDelegate.swift */,
 				B99D008E2B9B6AF5000AB315 /* ViewController.swift */,
 				B9B1F4942BC9BC1200EFD786 /* ApplicationConfiguration.swift */,
+				B9EB56E72BD486430050A1DD /* SplashViewController.swift */,
 				B99D00902B9B6AF5000AB315 /* Main.storyboard */,
 				B99D00932B9B6AF6000AB315 /* Assets.xcassets */,
 				B99D00952B9B6AF6000AB315 /* LaunchScreen.storyboard */,
@@ -155,6 +166,7 @@
 		B99D00C92B9E4031000AB315 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B9EFD7F82BD4989A004AF540 /* Video */,
 				B99D00CA2B9E403B000AB315 /* Images */,
 			);
 			path = Resources;
@@ -201,6 +213,7 @@
 				B9B1F4972BC9E8D500EFD786 /* Planta.swift */,
 				B95C0FE32BD19F1D00605EE5 /* User.swift */,
 				B9EB56E22BD393060050A1DD /* UserFromViewAdmin.swift */,
+				B9EFD7FF2BD4E50B004AF540 /* Sensor.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -225,9 +238,27 @@
 		B9EB56E42BD4444D0050A1DD /* Modal */ = {
 			isa = PBXGroup;
 			children = (
-				B9EB56E52BD4446D0050A1DD /* ModalViewController.swift */,
+				B9EB56E52BD4446D0050A1DD /* DetalleUserViewController.swift */,
+				B9EFD8012BD50809004AF540 /* UpdateUserViewController.swift */,
+				B9EFD8032BD50820004AF540 /* StoreUserViewController.swift */,
 			);
 			path = Modal;
+			sourceTree = "<group>";
+		};
+		B9EFD7F82BD4989A004AF540 /* Video */ = {
+			isa = PBXGroup;
+			children = (
+				B9EFD7FC2BD4A11E004AF540 /* Splash */,
+			);
+			path = Video;
+			sourceTree = "<group>";
+		};
+		B9EFD7FC2BD4A11E004AF540 /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				B9EFD7FD2BD4A172004AF540 /* plantSplash.mp4 */,
+			);
+			path = Splash;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -300,6 +331,7 @@
 				B99D00972B9B6AF6000AB315 /* LaunchScreen.storyboard in Resources */,
 				B99D00D72B9E8684000AB315 /* OIG2.jpeg in Resources */,
 				B9A2FEF62BCA53310032DF4F /* plantaset3.jpeg in Resources */,
+				B9EFD7FE2BD4A172004AF540 /* plantSplash.mp4 in Resources */,
 				B9A2FEFB2BCA68A60032DF4F /* icondirt.jpeg in Resources */,
 				B99D00CC2B9E40FA000AB315 /* _c3db3f28-bd52-4169-bff1-5147dd3786ff.jpeg in Resources */,
 				B99D00942B9B6AF6000AB315 /* Assets.xcassets in Resources */,
@@ -317,18 +349,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B9EB56E62BD4446E0050A1DD /* ModalViewController.swift in Sources */,
+				B9EB56E62BD4446E0050A1DD /* DetalleUserViewController.swift in Sources */,
 				B9E1048F2BD067140053439A /* TabBarOptionsViewController.swift in Sources */,
 				B9E104922BD075740053439A /* UsersViewController.swift in Sources */,
+				B9EB56E82BD486430050A1DD /* SplashViewController.swift in Sources */,
+				B9EFD8022BD50809004AF540 /* UpdateUserViewController.swift in Sources */,
 				B915A0A22BD18FC9007B3989 /* UserViewController.swift in Sources */,
 				B9B1F4952BC9BC1200EFD786 /* ApplicationConfiguration.swift in Sources */,
 				B99D008F2B9B6AF5000AB315 /* ViewController.swift in Sources */,
 				B99D008B2B9B6AF5000AB315 /* AppDelegate.swift in Sources */,
 				B95C0FE42BD19F1D00605EE5 /* User.swift in Sources */,
 				8837AEDE2BC617A100BBA5AB /* VerificationViewController.swift in Sources */,
+				B9EFD8042BD50820004AF540 /* StoreUserViewController.swift in Sources */,
 				B9EB56E32BD393060050A1DD /* UserFromViewAdmin.swift in Sources */,
 				B99D008D2B9B6AF5000AB315 /* SceneDelegate.swift in Sources */,
 				B9B1F4982BC9E8D500EFD786 /* Planta.swift in Sources */,
+				B9EFD8002BD4E50B004AF540 /* Sensor.swift in Sources */,
 				B99D00DA2B9E8BE9000AB315 /* PlantViewController.swift in Sources */,
 				B99D00CE2B9E4158000AB315 /* LoginViewController.swift in Sources */,
 				B99D00D42B9E7FFE000AB315 /* PlantsViewController.swift in Sources */,
@@ -486,11 +522,12 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = integradora1.0/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Life Plants";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -517,11 +554,12 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = integradora1.0/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Life Plants";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

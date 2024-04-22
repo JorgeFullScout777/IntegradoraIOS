@@ -18,20 +18,18 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var btnsLogin: [UIButton]!
     var estado = false
     var errores:[String:Any] = [:]
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        
-        //Blur Imagen
+                
         let blurEffect = UIBlurEffect(style: .regular)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = imgBackground.bounds
         imgBackground.addSubview(blurEffectView)
         
-        //Redondeo Contenedor
         viewBackgroundInputs.layer.cornerRadius = 20
         
-        //Redonde Botones
         for boton in btnsLogin{
             boton.layer.cornerRadius = 20
             boton.layer.borderWidth = 4.0
@@ -39,7 +37,20 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
         
         txfPassword.isSecureTextEntry = true
-        //btnIniciarSesion.isEnabled = false
+    }
+    
+    func btnEnable(){
+        DispatchQueue.main.async {
+            self.btnIniciarSesion.isEnabled = true
+            self.btnIniciarSesion.alpha = 1.0
+        }
+    }
+    
+    func btnDisabled(){
+        DispatchQueue.main.async{
+            self.btnIniciarSesion.isEnabled = false
+            self.btnIniciarSesion.alpha = 0.5
+        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -54,17 +65,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if (txfCorreo.text)!.count > 1 && (txfPassword.text)!.count > 1 {
-            btnIniciarSesion.isEnabled = true
-        }
-        else{
-            btnIniciarSesion.isEnabled = false
-        }
+
     }
     
 
     
     @IBAction func IniciarSesion() {
+        btnDisabled()
         let correo = txfCorreo.text!
         let password = txfPassword.text!
 
@@ -140,6 +147,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                             print("Error parsing JSON response:", error)
                         }
                 } // Fin de la validación del código de respuesta HTTP
+                self.btnEnable()
             }
 
             task.resume()

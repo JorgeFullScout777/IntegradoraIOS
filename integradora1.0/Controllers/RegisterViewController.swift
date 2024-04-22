@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RegisterViewController: UIViewController {
+class RegisterViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var scrRegister: UIScrollView!
     
@@ -25,17 +25,45 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var btnRegister: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        setup()
+    }
+    
+    func setup(){
         btnRegister.layer.cornerRadius = 20
-        
+        txfpassword.isSecureTextEntry = true
+        txfpassword_confirmation.isSecureTextEntry = true
+        txfname.delegate = self
+        txfemail.delegate = self
+        txfpassword.delegate = self
+        txfpassword_confirmation.delegate = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
         scrRegister.contentSize = CGSize(width: 0, height: 548)
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func btnEnable(){
+        DispatchQueue.main.async {
+            self.btnRegister.isEnabled = true
+            self.btnRegister.alpha = 1.0
+        }
+    }
+    
+    func btnDisabled(){
+        DispatchQueue.main.async{
+            self.btnRegister.isEnabled = false
+            self.btnRegister.alpha = 0.5
+        }
+    }
+    
     
     @IBAction func registro() {
+        btnDisabled()
         let nombre = txfname.text!
         let correo = txfemail.text!
         let password = txfpassword.text!
@@ -75,8 +103,13 @@ class RegisterViewController: UIViewController {
                             let jsonResponse = try JSONSerialization.jsonObject(with: data, options: [])
                             if let responseDictionary = jsonResponse as? [String: Any] {
                                 print("Procesando codigos de estado")
-                                if httpResponse.statusCode == 200{
-                                    print("Estado 200")
+                                if httpResponse.statusCode == 201{
+                                    print("Estado 201")
+                                    DispatchQueue.main.async{
+                                        self.errorname.text = ""
+                                        self.erroremail.text = ""
+                                        self.errorpassword.text = ""
+                                    }
                                     let message = responseDictionary["msg"] as? String
                                     DispatchQueue.main.async {
                                         // Mostrar un mensaje de alerta en lugar de usar el label
@@ -87,10 +120,27 @@ class RegisterViewController: UIViewController {
                                         self.present(alert, animated: true)
                                     }
                                 }
-                                if httpResponse.statusCode == 422{
-                                    if let errores = responseDictionary["errors"] as? [String:String]{
-                                        if let name = errores["name"]{
-                                            
+                                if httpResponse.statusCode == 422 {
+                                    if let errores = responseDictionary["errors"] as? [String:[String]] {
+                                        DispatchQueue.main.async {
+                                            if let nameError = errores["name"]?.first {
+                                                self.errorname.text = nameError
+                                            }
+                                            else{
+                                                self.errorname.text = ""
+                                            }
+                                            if let emailError = errores["email"]?.first {
+                                                self.erroremail.text = emailError
+                                            }
+                                            else{
+                                                self.erroremail.text = ""
+                                            }
+                                            if let passwordError = errores["password"]?.first {
+                                                self.errorpassword.text = passwordError
+                                            }
+                                            else{
+                                                self.errorpassword.text = ""
+                                            }
                                         }
                                     }
                                 }
@@ -104,6 +154,7 @@ class RegisterViewController: UIViewController {
                             print("Error parsing JSON response:", error)
                         }
                 } // Fin de la validación del código de respuesta HTTP
+                self.btnEnable()
             }
 
             task.resume()

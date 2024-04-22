@@ -23,6 +23,9 @@ class VerificationViewController: UIViewController, UITextFieldDelegate {
         btnVerificar.layer.cornerRadius = 20
     }
     
+    @IBAction func back() {
+        dismiss(animated: true)
+    }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         txfcodigo.resignFirstResponder()
         return true

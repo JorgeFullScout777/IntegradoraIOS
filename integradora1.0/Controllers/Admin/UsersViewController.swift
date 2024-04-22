@@ -7,14 +7,27 @@
 
 import UIKit
 
-class UsersViewController: UIViewController {
+class UsersViewController: UIViewController, ModalUserViewControllerDelegate, StoreUserViewControllerDelegate {
+    
     @IBOutlet weak var scrUsers: UIScrollView!
     var users:[UserFVA] = []
     var y = 0.0
-
+    @IBOutlet weak var btnAdduser: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        btnAdduser.layer.cornerRadius = 35
+        
+        consultarUsers()
+    }
+    
+    @IBAction func refresh() {
+        users = []
+        y = 0.0
+        for subview in scrUsers.subviews{
+            subview.removeFromSuperview()
+        }
         consultarUsers()
     }
     
@@ -33,7 +46,22 @@ class UsersViewController: UIViewController {
                 print("Código de estado HTTP de la respuesta: \(httpResponse.statusCode)")
                 if httpResponse.statusCode == 401{
                     DispatchQueue.main.async{
-                        self.present(ApplicationConfiguration.closeApp(), animated: true)
+                        let alerta = UIAlertController(title: "Ha ocurrido algo", message: "Vuelve a iniciar sesion", preferredStyle: .alert)
+                        let aceptar = UIAlertAction(title: "Aceptar", style: .default){accion in
+                            self.present(ApplicationConfiguration.login(), animated: true)
+                        }
+                        alerta.addAction(aceptar)
+                        self.present(alerta, animated: true)
+                    }
+                }
+                if httpResponse.statusCode == 403{
+                    DispatchQueue.main.async{
+                        let alerta = UIAlertController(title: "Ha ocurrido algo", message: "No tienes permisos suficientes", preferredStyle: .alert)
+                        let aceptar = UIAlertAction(title: "Aceptar", style: .default){accion in
+                            self.present(ApplicationConfiguration.home(), animated: true)
+                        }
+                        alerta.addAction(aceptar)
+                        self.present(alerta, animated: true)
                     }
                 }
                 if let data = data {
@@ -72,6 +100,10 @@ class UsersViewController: UIViewController {
             let vista = UIView(frame: CGRect(x: 0, y: y, width: w, height: h))
             vista.layer.borderWidth = 1
             vista.layer.borderColor = UIColor.lightGray.cgColor
+            
+            if user.status == false{
+                vista.layer.backgroundColor = UIColor(red: 255/255, green: 236/255, blue: 236/255, alpha: 1.0).cgColor
+            }
             
             let lblNombre = UILabel(frame: CGRect(x: x, y: 10.0, width: w/3.0, height: hTittle))
             lblNombre.text = user.nameUsuario
@@ -114,7 +146,7 @@ class UsersViewController: UIViewController {
             let openButton = UIButton()
             openButton.frame = CGRect(x: 0, y: 0, width: vista.frame.width, height: vista.frame.height)
             openButton.tag = index
-            openButton.addTarget(self, action: #selector(openModal(sender: )), for: .touchUpInside)
+            openButton.addTarget(self, action: #selector(irDetalle(sender: )), for: .touchUpInside)
             y += h
             vista.addSubview(openButton)
             vista.addSubview(arrow)
@@ -127,9 +159,42 @@ class UsersViewController: UIViewController {
         scrollUsers()
     }
     
-    @objc func openModal(sender:UIButton) {
-        print("hola")
+    func clearUsers(){
+        y = 0.0
+        for subview in self.scrUsers.subviews {
+            subview.removeFromSuperview()
+        }
+    }
+    
+    @objc func irDetalle(sender: UIButton) {
         let user = users[sender.tag]
+        if let muvc = storyboard?.instantiateViewController(withIdentifier: "userView") as? ModalUserViewController {
+            muvc.user = user
+            muvc.index = sender.tag
+            muvc.modalPresentationStyle = .fullScreen
+            muvc.modalTransitionStyle = .crossDissolve
+            muvc.delegate = self
+            present(muvc, animated: true)
+        }
+    }
+    
+    func backButtonPressed(index: Int, user: UserFVA) {
+        users[index] = user
+        clearUsers()
+        dibujarUsuarios()
+    }
+    
+    func backButtonPressedStore() {
+        users.removeAll()
+        clearUsers()
+        consultarUsers()
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "sgStoreAdmin" {
+            if let storeUserVC = segue.destination as? StoreUserViewController {
+                storeUserVC.delegate = self
+            }
+        }
     }
 
     @objc func closeModal() {
@@ -137,7 +202,7 @@ class UsersViewController: UIViewController {
     }
 
     func scrollUsers(){
-        scrUsers.contentSize = CGSize(width: view.frame.width, height: y+80)
+        scrUsers.contentSize = CGSize(width: view.frame.width, height: y+83)
     }
     
 }
